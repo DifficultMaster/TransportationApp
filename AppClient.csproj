@@ -1,0 +1,124 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BD5Server\**" />
+    <Compile Remove="Server\**" />
+    <EmbeddedResource Remove="BD5Server\**" />
+    <EmbeddedResource Remove="Server\**" />
+    <None Remove="BD5Server\**" />
+    <None Remove="Server\**" />
+    <Page Remove="BD5Server\**" />
+    <Page Remove="Server\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="UI\Resources\Audio\failPing.wav" />
+    <None Remove="UI\Resources\Audio\successPing.wav" />
+    <None Remove="UI\Resources\Fonts\arial.ttf" />
+    <None Remove="UI\Resources\Fonts\arialbd.ttf" />
+    <None Remove="UI\Resources\Images\appIcon.png" />
+    <None Remove="UI\Resources\Images\Backgrounds\fail.png" />
+    <None Remove="UI\Resources\Images\Backgrounds\success.png" />
+    <None Remove="UI\Resources\Images\Backgrounds\terminal.png" />
+    <None Remove="UI\Resources\Images\depotIcon.png" />
+    <None Remove="UI\Resources\Images\editIcon.png" />
+    <None Remove="UI\Resources\Images\exitIcon.png" />
+    <None Remove="UI\Resources\Images\keyboardIcon.png" />
+    <None Remove="UI\Resources\Images\route.png" />
+    <None Remove="UI\Resources\Images\routeIcon.png" />
+    <None Remove="UI\Resources\Images\scheduleIcon.png" />
+    <None Remove="UI\Resources\Images\settingsIcon.png" />
+    <None Remove="UI\Resources\Images\staffIcon.png" />
+    <None Remove="UI\Resources\Images\vehicleIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="UI\Windows\Colors.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UI\Resources\Fonts\arial.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UI\Resources\Fonts\arialbd.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="UI\Resources\Audio\failPing.wav" />
+    <Resource Include="UI\Resources\Audio\successPing.wav" />
+    <Resource Include="UI\Resources\Images\appIcon.png" />
+    <Resource Include="UI\Resources\Images\Backgrounds\fail.png" />
+    <Resource Include="UI\Resources\Images\Backgrounds\kyivmetro.jpg" />
+    <Resource Include="UI\Resources\Images\Backgrounds\success.png" />
+    <Resource Include="UI\Resources\Images\Backgrounds\terminal.png" />
+    <Resource Include="UI\Resources\Images\Backgrounds\backgroundWave.png" />
+    <Resource Include="UI\Resources\Images\depotIcon.png" />
+    <Resource Include="UI\Resources\Images\editIcon.png" />
+    <Resource Include="UI\Resources\Images\exitIcon.png" />
+    <Resource Include="UI\Resources\Images\keyboardIcon.png" />
+    <Resource Include="UI\Resources\Images\Legacy\user_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="itext.bouncy-castle-adapter" Version="9.1.0" />
+    <PackageReference Include="itext7" Version="9.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="UI\Resources\Images\Legacy\app_icon.png" />
+    <Resource Include="UI\Resources\Images\Legacy\app_icon_white.png" />
+    <Resource Include="UI\Resources\Images\Legacy\back_icon.png" />
+    <Resource Include="UI\Resources\Images\Legacy\save_icon.png" />
+    <Resource Include="UI\Resources\Images\Legacy\update_icon.png" />
+    <Resource Include="UI\Resources\Images\logsIcon.png" />
+    <Resource Include="UI\Resources\Images\route.png" />
+    <Resource Include="UI\Resources\Images\routeIcon.png" />
+    <Resource Include="UI\Resources\Images\scheduleIcon.png" />
+    <Resource Include="UI\Resources\Images\settingsIcon.png" />
+    <Resource Include="UI\Resources\Images\staffIcon.png" />
+    <Resource Include="UI\Resources\Images\vehicleIcon.png" />
+    <Resource Include="UI\Windows\Colors.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UI\Resources\Styles\Helpers\TextboxStyleHelper.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator></Generator>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UI\Windows\TerminalWindow.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+
+</Project>

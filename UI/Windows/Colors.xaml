@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="PrimaryBlue" Color="#4679A6"/>
+    <SolidColorBrush x:Key="PrimaryDarkBlue" Color="#0F398C"/>
+    <SolidColorBrush x:Key="ButtonBackground" Color="#4679A6"/>
+    <SolidColorBrush x:Key="ButtonBorder" Color="#2F4F7A"/>
+
+    <SolidColorBrush x:Key="ValidState" Color="#00FF00"/>
+    <SolidColorBrush x:Key="InvalidState" Color="#F71818"/>
+
+    <SolidColorBrush x:Key="PrimaryBackground" Color="#C1C7D9"/>
+    <SolidColorBrush x:Key="HoverBackground" Color="#D1D7E9"/>
+    <SolidColorBrush x:Key="FocusedBackground" Color="#E1E7F9"/>
+</ResourceDictionary>

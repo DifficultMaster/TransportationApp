@@ -1,0 +1,11 @@
+﻿<Window x:Class="AppClient.UI.Windows.TerminalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppClient.UI.Windows"
+        mc:Ignorable="d" Height="960" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="/UI/Resources/Images/appIcon.png">
+    <Grid>
+        <Frame x:Name="TerminalFrame" Content="" NavigationUIVisibility="Hidden" PreviewKeyDown="TerminalFrame_PreviewKeyDown"/>
+    </Grid>
+</Window>

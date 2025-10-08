@@ -1,0 +1,55 @@
+﻿<Page x:Class="AppClient.UI.AccessLvl3.DepotPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppClient.UI.AccessLvl3"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1770"
+      Title="DepotPage" Background="Transparent" Unloaded="Page_Unloaded">
+
+    <Grid>
+        <Border Background="#C1C7D9" CornerRadius="30,0,0,30">
+            <Grid>
+                <Label Content="ДЕПО" HorizontalAlignment="Left" Margin="80,-900,0,0" VerticalAlignment="Center" FontSize="60" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#4679A6"/>
+                <Button x:Name="SaveButton" Content="Звіт" HorizontalAlignment="Right" Margin="0,-890,480,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#C1C7D9" Style="{StaticResource SmoothActiveButtonStyle1}" Click="SaveButton_Click" IsEnabled="True"/>
+                <DataGrid x:Name="DepotsGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="420" Width="1360" Margin="0,180,330,20" 
+                  ColumnWidth="*" Style="{StaticResource CustomDataGridStyle}" CanUserAddRows="False" ClipToBounds="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell" AutomationProperties.IsColumnHeader="True" CurrentCellChanged="DepotsGrid_CurrentCellChanged" CellEditEnding="DepotsGrid_CellEditEnding" />
+                <DataGrid x:Name="AddressesGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="420" Width="1360" Margin="0,630,330,20" 
+  ColumnWidth="*" Style="{StaticResource CustomDataGridStyle}" CanUserAddRows="False" ClipToBounds="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell"  AutomationProperties.IsColumnHeader="True" CurrentCellChanged="AddressesGrid_CurrentCellChanged" CellEditEnding="AddressesGrid_CellEditEnding" />
+                
+                <Border Background="#4679A6" CornerRadius="30,0,0,30" Margin="1400,0,0,0">
+                    <Grid x:Name="SideGrid">
+                        <Label x:Name="TableInformationLabel" Content="Таблиця:" HorizontalAlignment="Left" Margin="50,-420,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Label x:Name="TableLabel" Content="" HorizontalAlignment="Left" Margin="170,-420,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Label x:Name="KeyInformationLabel" Content="Ключ:" HorizontalAlignment="Left" Margin="50,-520,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Label x:Name="KeyLabel" Content="" HorizontalAlignment="Left" Margin="130,-520,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Label x:Name="EditInformationLabel" Content="Редагувати" HorizontalAlignment="Left" Margin="50,-320,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Button x:Name="EditButton" HorizontalAlignment="Left" Height="30" Margin="220,-320,0,0" VerticalAlignment="Center" Width="30" Style="{StaticResource SmoothActiveButtonStyle}" Click="EditButton_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/UI/Resources/Images/editIcon.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="AddButton" Content="Додати" HorizontalAlignment="Center" Margin="0,-20,0,0" VerticalAlignment="Center" Width="156" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="AddButton_Click" IsEnabled="False"/>
+                        <Button x:Name="RemoveButton" Content="Видалити" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Center" Width="156" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="RemoveButton_Click" IsEnabled="False"/>
+
+                        <Grid x:Name="AddPopupGrid" Visibility="Collapsed">
+                            <Label x:Name="PrimaryKeyInformationLabel" Content="Головний ключ:" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Black" Visibility="Visible" Background="{x:Null}" Foreground="#C1C7D9"/>
+                            <TextBox x:Name="PrimaryKeyTextbox" HorizontalAlignment="Left" Margin="50,200,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="270" Height="38" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" Text="" IsEnabled="True" Style="{StaticResource CustomTextboxStyle}" Visibility="Visible" KeyUp="PrimaryKeyTextbox_KeyUp" MaxLength="5" MaxLines="1"/>
+                            <Label x:Name="AddressKeyInformationLabel" Content="Ключ адреси:" HorizontalAlignment="Left" Margin="50,400,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Black" Visibility="Visible" Background="{x:Null}" Foreground="#C1C7D9"/>
+                            <TextBox x:Name="AddressKeyTextbox" HorizontalAlignment="Left" Margin="50,500,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="270" Height="38" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" Text="" IsEnabled="True" Style="{StaticResource CustomTextboxStyle}" Visibility="Visible" KeyUp="AddressKeyTextbox_KeyUp" MaxLength="5" MaxLines="1"/>
+                        </Grid>
+                        
+                        <Grid x:Name="RemovePopupGrid" Visibility="Collapsed">
+                            <Label Content="УВАГА!" HorizontalAlignment="Center" Margin="0,500,0,0" VerticalAlignment="Center" FontSize="21" FontFamily="Noto Sans JP Black" Background="{x:Null}" Visibility="Visible" Foreground="#F71818"/>
+                            <Label x:Name="RemovePopupLabel" Content="Буде видалено всі похідні об'єкти" HorizontalAlignment="Center" Margin="0,570,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Visibility="Visible" Foreground="#F71818"/>
+                            <Label Content="ЗМІНИ ВІДМІНИТИ НЕМОЖЛИВО!" HorizontalAlignment="Center" Margin="0,640,0,0" VerticalAlignment="Center" FontSize="21" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Visibility="Visible" Foreground="#F71818"/>
+                        </Grid>  
+                        
+                        <Button x:Name="ConfirmButton" Content="Підтвердити" HorizontalAlignment="Center" Margin="0,820,0,0" VerticalAlignment="Center" Width="156" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Visibility="Collapsed" Click="ConfirmButton_Click" IsEnabled="False"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

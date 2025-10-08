@@ -1,0 +1,34 @@
+﻿<Page x:Class="AppClient.UI.AccessLvl3.SchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppClient.UI.AccessLvl3"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1770"
+      Title="SchedulePage" Background="Transparent" Unloaded="Page_Unloaded">
+
+    <Grid>
+        <Border Background="#C1C7D9" CornerRadius="30,0,0,30">
+            <Grid>
+                <Label Content="ЗВІТНОСТІ" HorizontalAlignment="Left" Margin="80,-900,0,0" VerticalAlignment="Center" FontSize="60" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#0F398C"/>
+                <Button x:Name="SaveButton" Content="Звіт" HorizontalAlignment="Right" Margin="0,-900,80,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#C1C7D9" Style="{StaticResource SmoothActiveButtonStyle2}" Click="SaveButton_Click" IsEnabled="True"/>
+                <Button x:Name="PurgeButton" Content="Очистити" HorizontalAlignment="Right" Margin="0,-900,240,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#C1C7D9" Style="{StaticResource SmoothActiveButtonStyle2}" Click="PurgeButton_Click" IsEnabled="True"/>
+                <Label Content="Включно з:" HorizontalAlignment="Center" Margin="-1300,-626,0,0" VerticalAlignment="Center" FontSize="28" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#0F398C"/>
+                <DatePicker x:Name="LogsMinDatePicker" HorizontalAlignment="Center" Margin="-900,-650,0,0" VerticalAlignment="Center" Width="200" Height="24" FontFamily="Noto Sans JP DemiLight" Text="Оберіть дату" SelectedDateChanged="LogsDatePicker_SelectedDateChanged">
+                    <DatePicker.RenderTransform>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    </DatePicker.RenderTransform>
+                </DatePicker>
+                <Label Content="до:" HorizontalAlignment="Center" Margin="500,-626,0,0" VerticalAlignment="Center" FontSize="28" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#0F398C"/>
+                <DatePicker x:Name="LogsMaxDatePicker" HorizontalAlignment="Center" Margin="800,-650,0,0" VerticalAlignment="Center" Width="200" Height="24" FontFamily="Noto Sans JP DemiLight" Text="Оберіть дату" SelectedDateChanged="LogsDatePicker_SelectedDateChanged" >
+                    <DatePicker.RenderTransform>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    </DatePicker.RenderTransform>
+                </DatePicker>
+                <DataGrid x:Name="ValidationsGrid" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="770" Width="1650" Margin="0,310,0,40" 
+                          ColumnWidth="*" Style="{StaticResource CustomDataGridStyle}" CanUserAddRows="False" ClipToBounds="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" AutomationProperties.IsColumnHeader="True" />
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

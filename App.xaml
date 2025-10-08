@@ -1,0 +1,18 @@
+﻿<Application x:Class="AppClient.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AppClient.UI"
+             StartupUri="/UI/Windows/TerminalWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Windows/Colors.xaml"/>
+                <ResourceDictionary Source="/UI/Resources/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/UI/Resources/Styles/GridStyles.xaml"/>
+                <ResourceDictionary Source="/UI/Resources/Styles/TextboxStyles.xaml"/>
+                <ResourceDictionary Source="/UI/Resources/Styles/PasswordboxStyles.xaml"/>
+                <ResourceDictionary Source="/UI/Resources/Styles/ComboBoxStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

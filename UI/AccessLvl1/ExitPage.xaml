@@ -1,0 +1,20 @@
+﻿<Page x:Class="AppClient.UI.AccessLvl1.ExitPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppClient.UI.AccessLvl1"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1770"
+      Title="ExitPage" Background="Transparent" Unloaded="Page_Unloaded">
+
+    <Grid>
+        <Border Background="#0F398C" CornerRadius="30,0,0,30">
+            <Grid>
+                <Label Content="Вийти і закрити програму?" HorizontalAlignment="Center" Margin="0,-200,0,0" VerticalAlignment="Center" FontSize="50" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#C1C7D9"/>
+                <Button x:Name="YesButton" Content="Так" HorizontalAlignment="Center" Margin="-400,200,0,0" VerticalAlignment="Center" Width="250" Height="86" FontSize="36" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="YesButton_Click" IsEnabled="True"/>
+                <Button x:Name="NoButton" Content="Ні" HorizontalAlignment="Center" Margin="400,200,0,0" VerticalAlignment="Center" Width="250" Height="86" FontSize="36" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="NoButton_Click" IsEnabled="True"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

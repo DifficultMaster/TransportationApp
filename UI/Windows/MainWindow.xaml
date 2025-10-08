@@ -1,0 +1,51 @@
+﻿<Window x:Class="AppClient.UI.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppClient.UI.Windows"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="/UI/Resources/Images/appIcon.png" Background="#FF0F398C">
+    <Grid Margin="150,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="540*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Frame x:Name="MainFrame" Content="" NavigationUIVisibility="Hidden" Height="1080" Width="1770"/>
+        <WrapPanel x:Name="VerticalToolbar" 
+                   HorizontalAlignment="Left" 
+                   Margin="-150,0,0,0" 
+                   Width="144" 
+                   Background="Transparent" 
+                   Orientation="Vertical" 
+                   SizeChanged="VerticalToolbar_SizeChanged">
+            <Button x:Name="HomeButton" Width="104" Height="104" Margin="5" Background="Transparent" Click="HomeButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/appIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="ScheduleButton" Width="64" Height="104" Margin="5" Background="Transparent" Click="ScheduleButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/scheduleIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="StaffButton" Width="84" Height="104" Margin="5" Background="Transparent" Click="StaffButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/staffIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="VehicleButton" Width="74" Height="104" Margin="5" Background="Transparent" Click="VehicleButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/vehicleIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="RouteButton" Width="64" Height="104" Margin="5" Background="Transparent" Click="RouteButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/routeIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="DepotButton" Width="74" Height="104" Margin="5" Background="Transparent" Click="DepotButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/depotIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="LogsButton" Width="74" Height="104" Margin="5" Background="Transparent" Click="LogsButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/logsIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="SettingsButton" Width="74" Height="104" Margin="5" Background="Transparent" Click="SettingsButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/settingsIcon.png" Stretch="Uniform"/>
+            </Button>
+            <Button x:Name="ExitButton" Width="54" Height="104" Margin="5" Background="Transparent" Click="ExitButton_Click" BorderThickness="0,0,0,0">
+                <Image Source="/UI/Resources/Images/exitIcon.png" Stretch="Uniform"/>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</Window>

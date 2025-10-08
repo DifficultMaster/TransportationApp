@@ -1,0 +1,38 @@
+﻿<Page x:Class="AppClient.UI.AccessLvl2.RoutePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppClient.UI.AccessLvl2"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1770"
+      Title="RoutePage" Background="Transparent" Unloaded="Page_Unloaded">
+
+    <Grid>
+        <Border Background="#C1C7D9" CornerRadius="30,0,0,30">
+            <Grid>
+                <Label Content="МАРШРУТИ" HorizontalAlignment="Left" Margin="80,-900,0,0" VerticalAlignment="Center" FontSize="60" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#4679A6"/>
+                <Label x:Name="DepotLabel" Content="Автобусний парк №0" HorizontalAlignment="Left" Margin="520,-890,0,0" VerticalAlignment="Center" FontSize="38" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#4679A6"/>
+                <Button x:Name="SaveButton" Content="Звіт" HorizontalAlignment="Right" Margin="0,-890,480,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#C1C7D9" Style="{StaticResource SmoothActiveButtonStyle1}" Click="SaveButton_Click" IsEnabled="True"/>
+                <DataGrid x:Name="RoutesGrid" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="870" Width="1360" Margin="0,180,330,20" 
+                      ColumnWidth="*" Style="{StaticResource CustomDataGridStyle}" CanUserAddRows="False" ClipToBounds="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" AutomationProperties.IsColumnHeader="True" SelectionChanged="VehiclesGrid_SelectionChanged" />
+                <Border Background="#4679A6" CornerRadius="30,0,0,30" Margin="1400,0,0,0">
+                    <Grid x:Name="SideGrid">
+                        <Label x:Name="KeyInformationLabel" Content="Ключ:" HorizontalAlignment="Left" Margin="50,-420,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Label x:Name="KeyLabel" Content="" HorizontalAlignment="Left" Margin="130,-420,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Black" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Label x:Name="EditInformationLabel" Content="Редагувати" HorizontalAlignment="Left" Margin="50,-320,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Button x:Name="EditButton" HorizontalAlignment="Left" Height="30" Margin="220,-320,0,0" VerticalAlignment="Center" Width="30" Style="{StaticResource SmoothActiveButtonStyle}" Click="EditButton_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/UI/Resources/Images/editIcon.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Label x:Name="MapUrlInformationLabel" Content="Посилання на мапу:" HorizontalAlignment="Left" Margin="50,-120,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <TextBox x:Name="MapUrlTextbox" HorizontalAlignment="Left" Margin="50,-20,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="250" Height="38" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" Text="" IsEnabled="False" Style="{StaticResource CustomTextboxStyle}" LostFocus="MapUrlTextbox_LostFocus" MaxLength="100" MaxLines="1"/>
+                        <Label x:Name="NotesInformationLabel" Content="Нотатки:" HorizontalAlignment="Left" Margin="50,80,0,0" VerticalAlignment="Center" FontSize="24" FontFamily="Noto Sans JP Medium" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <TextBox x:Name="NotesTextbox" HorizontalAlignment="Left" Margin="50,330,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="250" Height="172" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" IsEnabled="False" Style="{StaticResource CustomTextboxStyle}" LostFocus="NotesTextbox_LostFocus"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

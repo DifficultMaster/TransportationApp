@@ -26,7 +26,7 @@ namespace AppServer.Data
 
         public static Dictionary<User, DataService.TableName> users = new Dictionary<User, DataService.TableName>();
 
-        public static AppDbContext context { get; private set; } = new AppDbContext();
+        public static AppDbContext context { get; private set; }
 
         public static string ipAddress { get; private set; } = string.Empty;
 

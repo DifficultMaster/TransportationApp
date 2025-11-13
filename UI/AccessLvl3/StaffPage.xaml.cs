@@ -660,7 +660,7 @@ namespace AppClient.UI.AccessLvl3
                             newPerson.Login = newValue;
                             break;
                         case nameof(Person.HashedPassword):
-                            newPerson.HashedPassword = AppServer.Data.PasswordHandler.GetHashedPassword(newValue);
+                            newPerson.HashedPassword = newValue; // Send plain text, server will hash
                             break;
                     }
                 }
@@ -873,7 +873,7 @@ namespace AppClient.UI.AccessLvl3
                             {
                                 PersonId = PrimaryKeyTextbox.Text,
                                 Login = PrimaryKeyTextbox.Text,
-                                HashedPassword = 1234.ToString(),
+                                HashedPassword = "1234", // Send plain text, server will hash
                             };
                             string jsonObject = JsonSerializer.Serialize(newPerson);
 

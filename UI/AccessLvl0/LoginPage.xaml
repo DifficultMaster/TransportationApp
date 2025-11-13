@@ -34,7 +34,8 @@
             </CheckBox>
             <Label Content="Пароль" HorizontalAlignment="Center" Margin="-240,90,0,0" VerticalAlignment="Center" FontSize="16" FontFamily="Noto Sans JP Light" Background="{x:Null}" Foreground="#FFC1C7D9"/>
             <PasswordBox x:Name="PasswordTextbox" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Center" Width="300" Height="38" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" Style="{StaticResource CustomPasswordboxStyle}" LostFocus="Textbox_LostFocus"/>
-            <Button x:Name="LoginButton" Content="Увійти" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="LoginButton_Click" IsEnabled="False"/>
+            <Button x:Name="LoginButton" Content="Увійти" HorizontalAlignment="Center" Margin="150,300,0,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="LoginButton_Click" IsEnabled="False"/>
+            <Button x:Name="RegisterButton" Content="Реєстрація" HorizontalAlignment="Center" Margin="-150,300,0,0" VerticalAlignment="Center" Width="136" Height="46" FontSize="21" FontFamily="Noto Sans JP Medium" Background="#FFC1C7D9" Foreground="#FF4679A6" Style="{StaticResource SmoothActiveButtonStyle}" Click="RegisterButton_Click" IsEnabled="False"/>
             <Label x:Name="ErrorLabel" Content="Помилка: невідома" HorizontalAlignment="Center" Margin="0,404,0,0" VerticalAlignment="Center" FontSize="15" FontFamily="Noto Sans JP Light" Background="{x:Null}" Foreground="#FFF71818" Visibility="Hidden"/>
         </Grid>
     </Grid>

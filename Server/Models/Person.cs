@@ -33,6 +33,9 @@ public partial class Person
     public string HashedPassword { get; set; } = null!;
 
     [InverseProperty("Person")]
+    public virtual ICollection<PasswordHistory> PasswordHistories { get; set; } = new List<PasswordHistory>();
+
+    [InverseProperty("Person")]
     public virtual Dispatcher? Dispatcher { get; set; }
 
     [InverseProperty("Person")]

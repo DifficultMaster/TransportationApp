@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AppServer.Network
 {
@@ -138,7 +139,13 @@ namespace AppServer.Network
                         var user = DataService.users.First(user => user.Key.client == client);
                         string loginResult = DataService.GetCredentialsValidity(messageParts[1], messageParts[2]);
 
-                        if (Enum.TryParse(loginResult.ToUpper(), out DataService.AccessLevel accessResult))
+                        if (loginResult.StartsWith("lockout:"))
+                        {
+                            string remainingTime = loginResult.Split(':')[1];
+                            TransmitTo(client, $"LOGIN~1~lockout:{remainingTime}~");
+                            DataService.LogToConsole($"-------------{client.Client.RemoteEndPoint?.ToString()}------------- --- Login attempt blocked, {remainingTime} seconds remaining");
+                        }
+                        else if (Enum.TryParse(loginResult.ToUpper(), out DataService.AccessLevel accessResult))
                         {
                             user.Key.Login(accessResult, messageParts[1]);
                             TransmitTo(client, $"LOGIN~0~{DataService.GetAccessLevel(user.Key)}~");
@@ -150,6 +157,42 @@ namespace AppServer.Network
                             DataService.LogToConsole($"-------------{client.Client.RemoteEndPoint?.ToString()}------------- --- Failed to log in due to error '{loginResult}'");
                         }
                         break;                                                          
+                    }
+
+                case "REGISTER": // REGISTER~difficultmaster~K9$mPx&n2jLq~
+                    {
+                        var user = DataService.users.First(user => user.Key.client == client);                        
+
+                        try
+                        {
+                            if (DataService.IsLoginNew(messageParts[1]))
+                            {
+                                user.Key.Register(messageParts[1], messageParts[2]);
+                                string loginResult = DataService.GetCredentialsValidity(messageParts[1], messageParts[2]);
+
+                                if (Enum.TryParse(loginResult.ToUpper(), out DataService.AccessLevel accessResult))
+                                {
+                                    user.Key.Login(accessResult, messageParts[1]);
+                                    TransmitTo(client, $"LOGIN~0~{DataService.GetAccessLevel(user.Key)}~");
+                                    DataService.LogToConsole($"-------------{client.Client.RemoteEndPoint?.ToString()}------------- --- Registered new user '{messageParts[1]}'");
+                                }
+                                else
+                                {
+                                    throw new Exception("Registration failed");
+                                }                                
+                            }
+                            else
+                            {
+                                TransmitTo(client, $"LOGIN~1~Login already exists~");
+                                DataService.LogToConsole($"-------------{client.Client.RemoteEndPoint?.ToString()}------------- --- Failed to register new user due to error 'Login already exists'");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            TransmitTo(client, $"LOGIN~1~{ex.Message}~");
+                            DataService.LogToConsole($"-------------{client.Client.RemoteEndPoint?.ToString()}------------- --- Failed to register new user due to error '{ex.Message}'");
+                        }
+                        break;
                     }
 
                 case "LOGOUT": // LOGOUT~difficultmaster~

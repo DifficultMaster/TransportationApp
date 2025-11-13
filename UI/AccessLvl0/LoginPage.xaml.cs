@@ -56,8 +56,20 @@ namespace AppClient.UI
         private void FailLogin(object sender, string message)
         {
             IsTerminalModeCheckbox.IsEnabled = true;
-
-            if (message.ToLower().Contains("password"))
+            
+            if (message.StartsWith("lockout:"))
+            {
+                string[] parts = message.Split(':');
+                if (parts.Length > 1)
+                {
+                    string remainingSeconds = parts[1];
+                    ErrorLabel.Content = $"Забагато невірних спроб. Спробуйте через {remainingSeconds} секунд.";
+                    ErrorLabel.Visibility = Visibility.Visible;                           
+                    PasswordTextbox.SetValue(TextboxStyleHelper.IsTextValidProperty, false);
+                    return;
+                }
+            }
+            else if (message.ToLower().Contains("password"))
             {
                 incorrectPasswords.Add(password);
             }
@@ -178,10 +190,12 @@ namespace AppClient.UI
             if (isLoginIncorrect || isPasswordIncorrect)
             {
                 LoginButton.IsEnabled = false;
+                RegisterButton.IsEnabled = false;
             }
             else
             {
                 LoginButton.IsEnabled = true;
+                RegisterButton.IsEnabled = true;
             }
         }
 
@@ -196,6 +210,17 @@ namespace AppClient.UI
             client.Transmit($"LOGIN~{login}~{password}~");
         }
 
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterButton.IsEnabled = false; 
+            IsTerminalModeCheckbox.IsEnabled = false;
+
+            this.login = LoginTextbox.Text;
+            this.password = PasswordTextbox.Password;
+
+            client.Transmit($"REGISTER~{login}~{password}~");
+        }
+
         private void KeyboardButton_Click(object sender, RoutedEventArgs e)
         {
             VirtualKeyboard.ShowTouchKeyboard();
@@ -205,6 +230,6 @@ namespace AppClient.UI
         {
             Keyboard.ClearFocus();
             Textbox_LostFocus(sender, e);
-        }
+        }        
     }
 }

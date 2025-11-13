@@ -215,14 +215,14 @@ namespace AppClient.UI.AccessLvl1
         private void PassEdit(object sender, string message)
         {
             ContactNumberTextbox.IsEnabled = false;
-            EditButton.IsEnabled = true;
+            EditContactNumberButton.IsEnabled = true;
             ContactNumberTextbox.SetValue(TextboxStyleHelper.IsTextValidProperty, true);
         }
 
         private void FailEdit(object sender, string message)
         {
             ContactNumberTextbox.IsEnabled = true;
-            EditButton.IsEnabled = true;
+            EditContactNumberButton.IsEnabled = true;
             ContactNumberTextbox.SetValue(TextboxStyleHelper.IsTextValidProperty, false);
         }
 
@@ -251,7 +251,7 @@ namespace AppClient.UI.AccessLvl1
             {
                 ContactNumberTextbox.SetValue(TextboxStyleHelper.IsTextValidProperty, true);
                 ContactNumberTextbox.IsEnabled = false;
-                EditButton.IsEnabled = false;
+                EditContactNumberButton.IsEnabled = false;
                 client.Transmit($"EDIT~MYCONTACT~{ContactNumberTextbox.Text}~");                
             }
         }

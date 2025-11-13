@@ -41,6 +41,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<VehicleType> VehicleTypes { get; set; }
 
+    public virtual DbSet<PasswordHistory> PasswordHistories { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Address>(entity =>
@@ -126,6 +128,16 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.FirstName).HasDefaultValue("?");
             entity.Property(e => e.LastName).HasDefaultValue("?");
             entity.Property(e => e.SurName).HasDefaultValue("?");
+        });
+
+        modelBuilder.Entity<PasswordHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.HasOne(d => d.Person)
+                .WithMany(p => p.PasswordHistories)
+                .HasForeignKey(d => d.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Route>(entity =>

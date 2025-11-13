@@ -32,6 +32,10 @@ namespace AppServer.Data
 
         public static int port { get; private set; } = 0;
 
+        // Login attempt tracking
+        private static Dictionary<string, DateTime> loginLockouts = new Dictionary<string, DateTime>();
+        private static readonly int lockoutDurationSeconds = 40;
+
         public enum TableName
         {
             ADDRESSES,
@@ -74,11 +78,11 @@ namespace AppServer.Data
             var person = context.Persons
                     .FirstOrDefault(p => p.Login == user.login);
 
-            if (person == null) throw new Exception("Invalid person");
+            if (person == null && query != "REGISTRATION") throw new Exception("Invalid person");
 
             Event log = new Event
             {
-                PersonId = person.PersonId,
+                PersonId = person?.PersonId ?? "UNKNOWN",
                 TableName = tableName.ToString(),
                 ActionType = actionType,
                 Query = query,
@@ -941,6 +945,26 @@ namespace AppServer.Data
             }
         }
 
+        public static void RegistrateUser(User user, Person person, AccessLevel accessLevel)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    context.Persons.Add(person);
+                    context.SaveChanges();
+
+                    //LogEdit(user, TableName.PERSONS, "INSERT", "REGISTRATION");
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
         public static TableName Edit(User user, string directive, string keyOrValue)
         {
             switch (directive)
@@ -1063,6 +1087,7 @@ namespace AppServer.Data
                 case "ADDPERSON":
                     {
                         Person newPerson = System.Text.Json.JsonSerializer.Deserialize<Person>(keyOrValue);
+                        newPerson.HashedPassword = PasswordHandler.GetHashedPassword(newPerson.HashedPassword);
 
                         using (var transaction = context.Database.BeginTransaction())
                         {
@@ -1712,7 +1737,7 @@ namespace AppServer.Data
                                     existingPerson.Login = newPerson.Login;
 
                                 if (existingPerson.HashedPassword != newPerson.HashedPassword)
-                                    existingPerson.HashedPassword = newPerson.HashedPassword;
+                                    existingPerson.HashedPassword = PasswordHandler.GetHashedPassword(newPerson.HashedPassword);
 
                                 context.Persons.Update(existingPerson);
                                 context.SaveChanges();
@@ -2161,10 +2186,37 @@ namespace AppServer.Data
             Console.WriteLine(entry);
         }
 
+        public static bool IsLoginNew(string login)
+        {
+            bool personExists = context.Persons
+                .AsNoTracking()
+                .Any(p => p.Login == login);
+
+            return !personExists;
+        }
+
         public static string GetCredentialsValidity(string login, string password)
         {
+            if (loginLockouts.ContainsKey(login))
+            {
+                DateTime lockoutEnd = loginLockouts[login];
+                if (DateTime.Now < lockoutEnd)
+                {
+                    int remainingSeconds = (int)(lockoutEnd - DateTime.Now).TotalSeconds;
+                    return $"lockout:{remainingSeconds + 1}";
+                }
+                else
+                {
+                    loginLockouts.Remove(login);
+                }
+            }
+
             if (userCredentials.ContainsKey(login) && userCredentials[login] == PasswordHandler.GetHashedPassword(password))
             {
+                if (loginLockouts.ContainsKey(login))
+                {
+                    loginLockouts.Remove(login);
+                }
                 return AccessLevel.ADMIN.ToString();
             }
 
@@ -2193,7 +2245,13 @@ namespace AppServer.Data
             }
             if (!PasswordHandler.VerifyPassword(password, person.HashedPassword))
             {
+                loginLockouts[login] = DateTime.Now.AddSeconds(lockoutDurationSeconds);
                 return "password";
+            }
+
+            if (loginLockouts.ContainsKey(login))
+            {
+                loginLockouts.Remove(login);
             }
 
             return person.AccessLevel;

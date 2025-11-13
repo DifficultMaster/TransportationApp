@@ -41,5 +41,19 @@ namespace AppServer.Network
             this.accessLevel = DataService.AccessLevel.VIEWER;
             this.login = string.Empty;        
         }
+
+        public void Register(string login, string password)
+        {
+            // Security flaw, every user not in Drivers or Dispatchers is an Admin, I should probably scratch this whole thing and make a new one on Postgre or something
+            this.accessLevel = DataService.AccessLevel.VIEWER;
+            string id = login;
+
+            if (id.Length > 14)
+                id = id.Remove(14);
+
+            // The following only works if the first 15 characters of a login are unique, but db has to be refactored for this (table drop),
+            // so let us just pray this doesn't cause issues for now
+            DataService.RegistrateUser(this, new Models.Person { PersonId = id, Login = login, HashedPassword = PasswordHandler.GetHashedPassword(password) }, this.accessLevel);
+        }
     }
 }

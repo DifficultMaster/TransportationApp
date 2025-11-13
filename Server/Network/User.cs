@@ -53,7 +53,7 @@ namespace AppServer.Network
 
             // The following only works if the first 15 characters of a login are unique, but db has to be refactored for this (table drop),
             // so let us just pray this doesn't cause issues for now
-            DataService.RegistrateUser(this, new Models.Person { PersonId = id, Login = login, HashedPassword = PasswordHandler.GetHashedPassword(password) }, this.accessLevel);
+            DataService.RegisterUser(this, new Models.Person { PersonId = id, Login = login, HashedPassword = PasswordHandler.GetHashedPassword(password) }, this.accessLevel);
         }
     }
 }

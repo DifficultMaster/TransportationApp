@@ -305,6 +305,12 @@ namespace AppServer.Network
                         {
                             switch (messageParts[1])
                             {
+                                case "CHANGEPASSWORD": // OTHER~CHANGEPASSWORD~...~...~
+                                    {
+                                        DataService.ChangePassword(user.Key, messageParts[2], messageParts[3]);
+                                        break;
+                                    }
+
                                 case "DBDOWN": // OTHER~DBDOWN~
                                     {
                                         msg = DataService.GetDatabase(user.Key);                                                                              

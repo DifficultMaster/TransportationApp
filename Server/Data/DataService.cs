@@ -945,7 +945,7 @@ namespace AppServer.Data
             }
         }
 
-        public static void RegistrateUser(User user, Person person, AccessLevel accessLevel)
+        public static void RegisterUser(User user, Person person, AccessLevel accessLevel)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -975,6 +975,7 @@ namespace AppServer.Data
                         context.PasswordHistories.RemoveRange(toRemove);
                     }
 
+                    context.SaveChanges();                    
                     transaction.Commit();
                 }
                 catch (Exception ex)

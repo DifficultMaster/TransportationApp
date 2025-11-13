@@ -238,9 +238,34 @@ namespace BD4Client.Network
 
         public void Disconnect()
         {
-            token?.Cancel();            
-            tcpClient.Close();
-            listenThread?.Join();
+            try
+            {
+                isRunning = false;
+                token?.Cancel();
+            }
+            catch { }
+
+            try
+            {
+                stream?.Close();
+            }
+            catch { }
+
+            try
+            {
+                tcpClient?.Close();
+            }
+            catch { }
+
+            try
+            {
+                if (listenThread != null && listenThread.IsAlive)
+                {
+                    listenThread.Join(500);
+                }
+            }
+            catch { }
+
             isRunning = false;
         }
 

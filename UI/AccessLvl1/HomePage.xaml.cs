@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using AppClient.UI;
 
 namespace AppClient.UI.AccessLvl1
 {  
@@ -270,9 +271,47 @@ namespace AppClient.UI.AccessLvl1
             }
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private void EditContactNumberButton_Click(object sender, RoutedEventArgs e)
         {
             ContactNumberTextbox.IsEnabled = !ContactNumberTextbox.IsEnabled;
+        }
+
+        private void EditPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                UnsubscribeEventHandlers();
+
+                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                Window mainWindow = Window.GetWindow(this);
+                mainWindow?.Close();
+
+                Window pwWindow = new Window
+                {
+                    Title = "Зміна паролю",
+                    Width = 600,
+                    Height = 960,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    ResizeMode = ResizeMode.NoResize,
+                    WindowStyle = WindowStyle.None,
+                    Icon = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/UI/Resources/Images/appIcon.png", UriKind.Absolute))
+                };
+
+                var frame = new Frame
+                {
+                    NavigationUIVisibility = NavigationUIVisibility.Hidden
+                };
+                frame.Navigate(new PasswordChangePage(client));
+
+                pwWindow.Content = frame;
+
+                Application.Current.MainWindow = pwWindow;
+                pwWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не вдалося відкрити сторінку зміни паролю.\nПомилка: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)

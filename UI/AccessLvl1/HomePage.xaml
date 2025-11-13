@@ -26,14 +26,13 @@
                         <Label x:Name="LastnameLabel" Content="" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Center" FontSize="30" FontFamily="Noto Sans JP DemiLight" Background="{x:Null}" Foreground="#C1C7D9"/>
                         <Label Content="Контактний номер:" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Center" FontSize="30" FontFamily="Noto Sans JP Light" Background="{x:Null}" Foreground="#C1C7D9"/>
                         <TextBox x:Name="ContactNumberTextbox" HorizontalAlignment="Center" Margin="230,200,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="300" Height="38" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" Text="+380" IsEnabled="False" Style="{StaticResource CustomTextboxStyle}" LostFocus="ContactNumberTextbox_LostFocus" KeyDown="ContactNumberTextbox_KeyDown" MaxLength="13" MaxLines="1"/>
-                        <Button x:Name="EditContactNumberButton" HorizontalAlignment="Left" Height="38" Margin="660,200,0,0" VerticalAlignment="Center" Width="38" Style="{StaticResource SmoothActiveButtonStyle}" Click="EditButton_Click">
+                        <Button x:Name="EditContactNumberButton" HorizontalAlignment="Left" Height="38" Margin="660,200,0,0" VerticalAlignment="Center" Width="38" Style="{StaticResource SmoothActiveButtonStyle}" Click="EditContactNumberButton_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/UI/Resources/Images/editIcon.png"/>
                             </Button.Background>
                         </Button>
-                        <Label Content="Пароль:" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Center" FontSize="30" FontFamily="Noto Sans JP Light" Background="{x:Null}" Foreground="#C1C7D9"/>
-                        <PasswordBox x:Name="PasswordTextbox" HorizontalAlignment="Center" Margin="230,300,0,0" VerticalAlignment="Center" Width="300" Height="38" FontSize="14" FontFamily="Noto Sans JP Medium" AllowDrop="False" IsEnabled="False" LostFocus="ContactNumberTextbox_LostFocus" KeyDown="ContactNumberTextbox_KeyDown" MaxLength="13"/>
-                        <Button x:Name="EditPasswordButton" HorizontalAlignment="Left" Height="38" Margin="660,300,0,0" VerticalAlignment="Center" Width="38" Style="{StaticResource SmoothActiveButtonStyle}" Click="EditButton_Click">
+                        <Label Content="Змінити пароль:" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Center" FontSize="30" FontFamily="Noto Sans JP Light" Background="{x:Null}" Foreground="#C1C7D9"/>
+                        <Button x:Name="EditPasswordButton" HorizontalAlignment="Left" Height="38" Margin="660,300,0,0" VerticalAlignment="Center" Width="38" Style="{StaticResource SmoothActiveButtonStyle}" Click="EditPasswordButton_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/UI/Resources/Images/editIcon.png"/>
                             </Button.Background>

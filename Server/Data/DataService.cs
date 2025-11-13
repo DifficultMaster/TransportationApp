@@ -954,7 +954,27 @@ namespace AppServer.Data
                     context.Persons.Add(person);
                     context.SaveChanges();
 
-                    //LogEdit(user, TableName.PERSONS, "INSERT", "REGISTRATION");
+                    var history = new PasswordHistory
+                    {
+                        PersonId = person.PersonId,
+                        HashedPassword = person.HashedPassword,
+                        DateChanged = DateTime.UtcNow
+                    };
+                    context.PasswordHistories.Add(history);
+
+                    var allHist = person.PasswordHistories
+                        .OrderByDescending(ph => ph.DateChanged)
+                        .Select(ph => ph)
+                        .ToList();
+
+                    allHist.Insert(0, history);
+
+                    if (allHist.Count > 10)
+                    {
+                        var toRemove = allHist.Skip(10).ToList();
+                        context.PasswordHistories.RemoveRange(toRemove);
+                    }
+
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -2295,6 +2315,73 @@ namespace AppServer.Data
             context = newContext;
             ipAddress = newIpAddress;
             port = newPort;            
+        }
+
+        public static void ChangePassword(User user, string oldPassword, string newPassword)
+        {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+
+            if (string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword))
+                throw new ArgumentException("Passwords cannot be empty");
+
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var person = context.Persons
+                        .Include(p => p.PasswordHistories)
+                        .SingleOrDefault(p => p.Login == user.login);
+
+                    if (person == null)
+                        throw new Exception("Invalid person");
+
+                    if (!PasswordHandler.VerifyPassword(oldPassword, person.HashedPassword))
+                        throw new Exception("Old password is incorrect");
+
+                    string newHashed = PasswordHandler.GetHashedPassword(newPassword);
+                    var recent = person.PasswordHistories
+                        .OrderByDescending(ph => ph.DateChanged)
+                        .Select(ph => ph.HashedPassword)
+                        .Take(10)
+                        .ToList();
+
+                    if (recent.Contains(newHashed))
+                        throw new Exception("New password was used recently");
+
+                    person.HashedPassword = newHashed;
+                    context.Persons.Update(person);
+
+                    var history = new PasswordHistory
+                    {
+                        PersonId = person.PersonId,
+                        HashedPassword = newHashed,
+                        DateChanged = DateTime.UtcNow
+                    };
+                    context.PasswordHistories.Add(history);
+
+                    var allHist = person.PasswordHistories
+                        .OrderByDescending(ph => ph.DateChanged)
+                        .Select(ph => ph)
+                        .ToList();
+
+                    allHist.Insert(0, history);
+
+                    if (allHist.Count > 10)
+                    {
+                        var toRemove = allHist.Skip(10).ToList();
+                        context.PasswordHistories.RemoveRange(toRemove);
+                    }
+
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
         }
     }
 }
